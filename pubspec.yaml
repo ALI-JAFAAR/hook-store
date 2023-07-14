@@ -25,7 +25,11 @@ dependencies:
     sdk: flutter
 
   flutter_svg: ^1.1.0 # it help us to use SVG in our app
-
+  provider:
+  http: 
+  google_fonts:
+  flutter_lints: ^2.0.0
+  huawei_iap: ^6.4.0+302
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -44,6 +48,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+    - assets/
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

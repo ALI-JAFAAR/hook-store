@@ -24,9 +24,10 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
+apply plugin: 'com.huawei.agconnect'
 android {
-    compileSdkVersion 34
+    compileSdkVersion flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -37,16 +38,31 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.shop_app"
+        applicationId "com.ALi_Jaafar95.hookStore.huawei"
         minSdkVersion 21
-        targetSdkVersion 34
+        targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }
 
+    signingConfigs {       
+        config {            
+           storeFile file('ali.jks')            
+           storePassword 'ALI098'            
+           keyAlias 'ALI098'            
+           keyPassword 'ALI098'        
+        }    
+    } 
+
     buildTypes {
+        debug {            
+           signingConfig signingConfigs.config        
+        } 
         release {
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.config
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -57,4 +73,5 @@ flutter {
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'com.huawei.agconnect:agconnect-core:1.5.2.300'
 }
