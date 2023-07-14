@@ -30,6 +30,7 @@ dependencies:
   google_fonts:
   flutter_lints: ^2.0.0
   huawei_iap: ^6.4.0+302
+  shared_preferences: ^2.0.7
 dev_dependencies:
   flutter_test:
     sdk: flutter

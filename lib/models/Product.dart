@@ -1,5 +1,123 @@
 import 'package:flutter/material.dart';
 
+// To parse this JSON data, do
+//
+//     final products = productsFromJson(jsonString);
+
+import 'dart:convert';
+
+Products productsFromJson(String str) => Products.fromJson(json.decode(str));
+
+String productsToJson(Products data) => json.encode(data.toJson());
+
+class Products {
+    Products({
+        required this.success,
+        required this.data,
+    });
+
+    bool success;
+    List<Datum> data;
+
+    factory Products.fromJson(Map<String, dynamic> json) => Products(
+        success: json["success"],
+        data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "success": success,
+        "data": List<dynamic>.from(data.map((x) => x.toJson())),
+    };
+}
+
+class Datum {
+    Datum({
+        required this.id,
+        required this.name,
+        required this.disc,
+        required this.price,
+        required this.pageId,
+        required this.img,
+        required this.createdAt,
+        required this.updatedAt,
+        required this.cat,
+    });
+
+    int id;
+    String name;
+    String disc;
+    int price;
+    int pageId;
+    String img;
+    DateTime createdAt;
+    DateTime updatedAt;
+    Cat cat;
+
+    factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+        id: json["id"],
+        name: json["name"],
+        disc: json["disc"],
+        price: json["price"],
+        pageId: json["page_id"],
+        img: json["img"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        cat: Cat.fromJson(json["cat"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "disc": disc,
+        "price": price,
+        "page_id": pageId,
+        "img": img,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+        "cat": cat.toJson(),
+    };
+}
+
+class Cat {
+    Cat({
+        required this.id,
+        required this.name,
+        required this.link,
+        required this.discrip,
+        required this.img,
+        required this.createdAt,
+        required this.updatedAt,
+    });
+
+    int id;
+    String name;
+    String link;
+    String discrip;
+    String img;
+    DateTime createdAt;
+    DateTime updatedAt;
+
+    factory Cat.fromJson(Map<String, dynamic> json) => Cat(
+        id: json["id"],
+        name: json["name"],
+        link: json["link"],
+        discrip: json["discrip"],
+        img: json["img"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+    );
+
+    Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "link": link,
+        "discrip": discrip,
+        "img": img,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+    };
+}
+
 class Product {
   final String image, title, description;
   final int price, size, id;
